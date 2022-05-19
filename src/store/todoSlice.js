@@ -18,28 +18,17 @@ const todosSlice = createSlice({
       });
     },
     selectTodo: (state, { payload }) => {
-      state.selected = state.todos.find((todo) => todo.id === payload);
+      state.selected =
+        payload === null ? null : { ...state.todos[payload], index: payload };
     },
     deleteTodo: (state, { payload }) => {
       state.todos = state.todos.filter((todo) => todo.id !== payload);
     },
     toggleTodo: (state, { payload }) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id !== payload) return todo;
-        return {
-          ...todo,
-          isComplete: !todo.isComplete,
-        };
-      });
+      state.todos[payload]["isComplete"] = !state.todos[payload]["isComplete"];
     },
     editTodo: (state, { payload }) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id !== payload.id) return todo;
-        return {
-          ...todo,
-          title: payload.title,
-        };
-      });
+      state.todos[payload.index]["title"] = payload.title;
     },
   },
 });

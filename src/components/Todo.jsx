@@ -29,7 +29,7 @@ const ToDo = () => {
 
   const onEdit = (e) => {
     e.preventDefault();
-    dispatch(editTodo({ id: selectedTodo.id, title: editInput }));
+    dispatch(editTodo({ title: editInput, index: selectedTodo.index }));
   };
 
   const onDelete = (e) => {
@@ -40,7 +40,7 @@ const ToDo = () => {
 
   const onToggle = (e) => {
     e.preventDefault();
-    dispatch(toggleTodo(selectedTodo.id));
+    dispatch(toggleTodo(selectedTodo.index));
   };
 
   return (
@@ -64,9 +64,9 @@ const ToDo = () => {
           {todos.length === 0 ? (
             <p>No Todos Available</p>
           ) : (
-            todos.map((todo) => (
+            todos.map((todo, index) => (
               <div
-                onClick={() => dispatch(selectTodo(todo.id))}
+                onClick={() => dispatch(selectTodo(index))}
                 key={todo.id}
                 className={`${todo.isComplete ? "line-through" : ""}`}
               >
